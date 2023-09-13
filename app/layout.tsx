@@ -19,6 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <header className="flex justify-center py-4">
+          <h1>도서 검색 사이트</h1>
+        </header>
         <ReactQueryProvider>
           {children}
         </ReactQueryProvider>
