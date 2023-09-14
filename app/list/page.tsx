@@ -1,11 +1,14 @@
 "use client"
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation'
 import BookList from "./BookList";
 import { getBookList } from "@/api/getBookList";
 import { BookTypes } from "@/types.d";
 
 export default function ListPage() {
+    const router = useRouter();
+    
     const [word, setWord] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [bookList, setBookList] = useState<BookTypes[]>([]);
@@ -31,7 +34,7 @@ export default function ListPage() {
     const handleIncreasePageNumber = () => setPageNumber(number => number + 1);
 
     const handleViewDetail = (isbn13?: string) => {
-        console.log(isbn13)
+        router.push(`/detail?isbn13=${isbn13}`)
     }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -64,7 +67,7 @@ export default function ListPage() {
 
             <BookList
                 bookList={bookList}
-                onClick={() => { }}
+                onClick={handleViewDetail}
                 onChangeScroll={handleIncreasePageNumber}
             />
 

@@ -9,7 +9,7 @@ import { BookTypes } from "@/types.d";
 
 interface BookListProps {
     bookList: BookTypes[];
-    onClick: () => void;
+    onClick: (isbn13: string) => void;
     onChangeScroll?: () => void;
 }
 export default function BookList({
@@ -44,6 +44,7 @@ export default function BookList({
                         return (
                             <article key={isbn13} ref={ref}>
                                 <BookItem
+                                    isbn13={isbn13}
                                     image={image}
                                     price={price}
                                     subtitle={subtitle}
@@ -58,6 +59,7 @@ export default function BookList({
                     return (
                         <article key={isbn13}>
                             <BookItem
+                                isbn13={isbn13}
                                 image={image}
                                 price={price}
                                 subtitle={subtitle}
@@ -75,9 +77,10 @@ export default function BookList({
 
 
 interface BookItemProps extends BookTypes {
-    onClick?: () => void;
+    onClick?: (isbn13: string) => void;
 }
 const BookItem = ({
+    isbn13 = "",
     image = "",
     subtitle = "",
     title = "",
@@ -88,7 +91,7 @@ const BookItem = ({
         <div className="flex flex-col justify-between min-w-[200px] max-w-[200px] min-h-[360px] max-h-[360px] items-center border border-gray-700">
             <button
                 type="button"
-                onClick={() => onClick()}
+                onClick={() => onClick(isbn13)}
                 className="h-screen flex flex-col justify-between"
             >
                 <HeaderTitle
