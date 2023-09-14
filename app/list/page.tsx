@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BookList from "./BookList";
 import { getBookList } from "@/api/getBookList";
 import { BookTypes } from "@/types.d";
@@ -9,14 +9,26 @@ export default function ListPage() {
     const [word, setWord] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [bookList, setBookList] = useState<BookTypes[]>([]);
+    
+    useEffect(() => {
+        handleScrollDown();
+    }, [pageNumber])
 
     const handleChangeWord = (e: React.ChangeEvent<HTMLInputElement>) => setWord(e.target.value);
-
+    
     const handleSearch = async () => {
         const response = await getBookList(word, pageNumber);
         const { data } = response;
         setBookList(data.books)
     }
+
+    const handleScrollDown = async () => {
+        const response = await getBookList(word, pageNumber);
+        const { data } = response;
+        setBookList(prevBookList => [...prevBookList, ...data.books])
+    }
+    
+    const handleIncreasePageNumber = () => setPageNumber(number => number + 1);
 
     const handleViewDetail = (isbn13?: string) => {
         console.log(isbn13)
@@ -53,6 +65,7 @@ export default function ListPage() {
             <BookList
                 bookList={bookList}
                 onClick={() => { }}
+                onChangeScroll={handleIncreasePageNumber}
             />
 
         </main>
