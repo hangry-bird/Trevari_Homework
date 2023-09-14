@@ -98,8 +98,8 @@ const BookItem = ({
 
                 <Image
                     src={image}
-                    className="mx-auto"
-                    width={"128"}
+                    className="mx-auto w-24 h-32"
+                    width={"96"}
                     height={"128"}
                     alt=""
                     unoptimized={true}
