@@ -1,16 +1,21 @@
 "use client"
 
 import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import BookList from "./BookList";
+import { getBookList } from "@/api/getBookList";
+import { BookTypes } from "@/types.d";
 
 export default function ListPage() {
     const [word, setWord] = useState<string>("");
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [bookList, setBookList] = useState<BookTypes[]>([]);
 
     const handleChangeWord = (e: React.ChangeEvent<HTMLInputElement>) => setWord(e.target.value);
 
-    const handleSearch = () => {
-        console.log("word: ", word)
+    const handleSearch = async () => {
+        const response = await getBookList(word, pageNumber);
+        const { data } = response;
+        setBookList(data.books)
     }
 
     const handleViewDetail = (isbn13?: string) => {
@@ -45,33 +50,11 @@ export default function ListPage() {
                 </button>
             </div>
 
-            <section className="flex flex-wrap justify-center content-start gap-2 w-full h-full">
-                <article>
-                    <div className="flex flex-col items-center border border-gray-700">
-                        <button
-                            type="button"
-                            onClick={() => handleViewDetail("123-123")}
-                        >
-                            <h3>{"Title"}</h3>
-                            <span className="text-gray-400 text-xs">Sub Title</span>
-                            <Image
-                                src={"https://itbook.store/img/books/9780321704214.png"}
-                                width={"128"}
-                                height={"128"}
-                                alt=""
-                                unoptimized={true}
-                            />
-                        </button>
-                        <Link
-                            target="_blank"
-                            href="https://itbook.store/books/9780321704214"
-                        >
-                            URL
-                        </Link>
-                    </div>
-                </article>
+            <BookList
+                bookList={bookList}
+                onClick={() => { }}
+            />
 
-            </section>
         </main>
     )
 }
