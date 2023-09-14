@@ -17,7 +17,6 @@ export default function BookList({
         <section className="flex flex-wrap justify-center content-start gap-2 w-full h-full">
             {
                 bookList?.map((book: BookTypes) => {
-                    console.log(book)
                     const {
                         image,
                         isbn13,
