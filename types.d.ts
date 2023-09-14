@@ -6,3 +6,16 @@ export type BookTypes = {
     image: string;
     url: string;
 }
+
+
+export type BookDetailTypes = {
+	title: string;
+	subtitle: string;
+	authors: string;
+	publisher: string;
+	pages: string;
+	rating: string;
+	desc: string;
+	price: string;
+	image: string;
+}
