@@ -7,7 +7,7 @@ import React, { useEffect } from "react";
 import { BookTypes } from "@/types.d";
 
 
-interface BookListProps {
+export interface BookListProps {
     bookList: BookTypes[];
     onClick: (isbn13: string) => void;
     onChangeScroll?: () => void;
@@ -76,10 +76,10 @@ export default function BookList({
 }
 
 
-interface BookItemProps extends BookTypes {
+export interface BookItemProps extends BookTypes {
     onClick?: (isbn13: string) => void;
 }
-const BookItem = ({
+export const BookItem = ({
     isbn13 = "",
     image = "",
     subtitle = "",
